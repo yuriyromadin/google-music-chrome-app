@@ -1,0 +1,39 @@
+{
+  "name": "Google music player",
+  "description": "Desktop app for Google play music service",
+  "version": "1.0",
+  "commands": {
+    "next-song": {
+      "suggested_key": {
+        "default": "MediaNextTrack"
+      },
+      "description": "Next song",
+      "global": true
+    },
+    "prev-song": {
+      "suggested_key": {
+        "default": "MediaPrevTrack"
+      },
+      "description": "Prev song",
+      "global": true
+    },
+    "play-song": {
+      "suggested_key": {
+        "default": "MediaPlayPause"
+      },
+      "description": "Play/Pause song",
+      "global": true
+    }
+  },
+  "manifest_version": 2,
+  "permissions": [
+	  "webview",
+    "background"
+  ],
+  "app": {
+    "background": {
+      "scripts": ["background.js"]
+    }
+  },
+  "icons": { "128": "icon-128.png" }
+}
