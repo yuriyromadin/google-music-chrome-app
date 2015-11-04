@@ -3,21 +3,21 @@
   "description": "Desktop app for Google play music service",
   "version": "1.0",
   "commands": {
-    "next-song": {
+    "forward": {
       "suggested_key": {
         "default": "MediaNextTrack"
       },
       "description": "Next song",
       "global": true
     },
-    "prev-song": {
+    "rewind": {
       "suggested_key": {
         "default": "MediaPrevTrack"
       },
       "description": "Prev song",
       "global": true
     },
-    "play-song": {
+    "play-pause": {
       "suggested_key": {
         "default": "MediaPlayPause"
       },
@@ -27,7 +27,7 @@
   },
   "manifest_version": 2,
   "permissions": [
-	  "webview",
+    "webview",
     "background"
   ],
   "app": {
@@ -35,5 +35,5 @@
       "scripts": ["background.js"]
     }
   },
-  "icons": { "128": "icon-128.png" }
+  "icons": { "128": "icon-256.png" }
 }
