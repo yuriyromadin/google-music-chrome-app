@@ -1,11 +1,12 @@
-function WebPlayer() {
-  var webview = document.querySelector('.player'),
-      timeout = 5000,
-      reloadKeyCode = 82,
-      playButtonId = 'play-pause',
-      availableButtons = ['forward', 'rewind', 'play-pause'];
+var WebPlayer = (function (window) {
 
-  var pressButton = function(id){
+  var webview = document.querySelector('.player'),
+      timeout = 5000, // 5 seconds
+      reloadKeyCode = 82, // R key
+      availableButtons = ['forward', 'rewind', 'play-pause'],
+      playButtonId = availableButtons[2],
+
+      pressButton = function(id){
         webview.executeScript({
           code: 'document.querySelectorAll(\'paper-icon-button[data-id="' + id + '"]\')[0].click()'
         });
@@ -16,7 +17,7 @@ function WebPlayer() {
         webview.style.width = document.documentElement.clientWidth + 'px';
       },
 
-      reloadWebView = function(event) {
+      keydownWebView = function(event) {
         if (event.keyCode === reloadKeyCode && (event.ctrlKey || event.metaKey)) {
           webview.reload();
         }
@@ -26,12 +27,12 @@ function WebPlayer() {
         pressButton(playButtonId);
       },
 
-      responseListener = function(request, sender, sendResponse) {
+      responseListener = function(request) {
         var button = request.command_name;
 
-          if(availableButtons.indexOf(button) >= 0) {
-            pressButton(button);
-          }
+        if(~availableButtons.indexOf(button)) {
+          pressButton(button);
+        }
       },
 
       initialize = function(){
@@ -41,12 +42,11 @@ function WebPlayer() {
 
   chrome.runtime.onMessage.addListener(responseListener);
   window.addEventListener('resize', resizeWebView);
-  window.addEventListener('keydown', reloadWebView);
+  window.addEventListener('keydown', keydownWebView);
 
   return {
     initialize: initialize
   };
-}
+})(window);
 
-var player = new WebPlayer();
-player.initialize();
+WebPlayer.initialize();
