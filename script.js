@@ -1,6 +1,9 @@
 function WebPlayer() {
-  var logo = document.querySelector('.drag'),
-      webview = document.querySelector("webview");
+  var webview = document.querySelector('.player'),
+      timeout = 5000,
+      reloadKeyCode = 82,
+      playButtonId = 'play-pause',
+      availableButtons = ['forward', 'rewind', 'play-pause'];
 
   var pressButton = function(id){
         webview.executeScript({
@@ -13,24 +16,32 @@ function WebPlayer() {
         webview.style.width = document.documentElement.clientWidth + 'px';
       },
 
-      responseListener = function(request, sender, sendResponse) {
-        var button = request.command_name,
-            availableButtons = ['forward', 'rewind', 'play-pause'];
-
-        if(availableButtons.indexOf(button) >= 0){
-          pressButton(button);
+      reloadWebView = function(event) {
+        if (event.keyCode === reloadKeyCode && (event.ctrlKey || event.metaKey)) {
+          webview.reload();
         }
+      },
+
+      playFirstSong = function() {
+        pressButton(playButtonId);
+      },
+
+      responseListener = function(request, sender, sendResponse) {
+        var button = request.command_name;
+
+          if(availableButtons.indexOf(button) >= 0) {
+            pressButton(button);
+          }
       },
 
       initialize = function(){
         resizeWebView();
-        setTimeout(function(){
-          pressButton('play-pause');
-        }, 5000);
+        setTimeout(playFirstSong, timeout);
       };
 
-  window.onresize = resizeWebView;
   chrome.runtime.onMessage.addListener(responseListener);
+  window.addEventListener('resize', resizeWebView);
+  window.addEventListener('keydown', reloadWebView);
 
   return {
     initialize: initialize
