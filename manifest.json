@@ -35,5 +35,5 @@
       "scripts": ["background.js"]
     }
   },
-  "icons": { "128": "icon-256.png" }
+  "icons": { "128": "icon-128.png" }
 }
