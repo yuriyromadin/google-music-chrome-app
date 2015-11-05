@@ -4,6 +4,14 @@
 
 Simple Chrome web app to listen to your Google Music collection and control playback from keyboard using media keys
 
+### Default hotkeys
+
+* Next song - `Media next track`
+* Prev song - `Media previous track`
+* Play/Pause song - `Media Play/pause`
+
+You can change default hotkeys by visiting `chrome://extensions/` and clicking on 'Keyboard shortcuts' link
+
 ### How to install
 
 1. To install an extension manually, click the wrench menu, point to Tools, and select Extensions to open the Extensions page.
